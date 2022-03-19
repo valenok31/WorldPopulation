@@ -1,16 +1,11 @@
 import React from "react";
-import './App.css';
 import {Route, Routes} from "react-router-dom";
-import Home from "./blockСomponents/Home/Home";
-import TopMenu from "./blockСomponents/TopMenu/TopMenu";
+import WorldPopulation from "./blockСomponents/WorldPopulation/WorldPopulation";
 
 let App = (props) => {
   return <>
-  <div>
-      {/*<TopMenu/>*/}
-  </div>
     <Routes>
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<WorldPopulation />} />
     </Routes>
   </>
 }
