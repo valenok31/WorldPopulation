@@ -7,7 +7,7 @@ import TopMenu from "./blockСomponents/TopMenu/TopMenu";
 let App = (props) => {
   return <>
   <div>
-      <TopMenu/>
+      {/*<TopMenu/>*/}
   </div>
     <Routes>
       <Route path="/home" element={<Home />} />

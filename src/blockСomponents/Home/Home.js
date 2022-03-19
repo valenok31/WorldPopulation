@@ -12,11 +12,19 @@ let Home = (props) => {
     const correctionFactor = 134500;     /* correction factor */
     const volatilityСoefficient = 10;    /* volatility coefficient */
 
+    var options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    };
+    let date = new Date().toLocaleString("en-US", options);
+    console.log(date);
+
     useEffect(
         () => {
             interval = setInterval(() => {
                 let utc = new Date().getTime();
-                let populationSize = Math.round((utc-unixTime01161970)*growth/1000)+population1970-correctionFactor - volatility;
+                let populationSize = Math.round((utc - unixTime01161970) * growth / 1000) + population1970 - correctionFactor - volatility;
                 setPopulationSize(dividedDigits(populationSize));
                 setVolatility(Math.round(Math.random() * volatilityСoefficient));
             }, 200)
@@ -25,14 +33,23 @@ let Home = (props) => {
     )
 
     const dividedDigits = (multitude) => {
-        return multitude.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return multitude.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     return <>
-        <div>Current Earth population*</div>
-        <div className={style.idem}>{populationSize}</div>
-        <div>* Estimated world population at the moment based on average fertility and mortality rates. The data error is no more than 1%.</div>
-        </>
+        <div className={style.worldPopulation}>
+            <div className={style.subject}>Current world population* as of {date}
+            </div>
+            <div className={style.population}>
+                <pre>{populationSize}</pre>
+            </div>
+            <div className={style.comment}>
+                <div>* Estimated world population at the moment based on average fertility and
+                    mortality rates. The data error is no more than 1%.
+                </div>
+            </div>
+        </div>
+    </>
 }
 
 export default Home;
