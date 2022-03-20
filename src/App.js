@@ -1,11 +1,11 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import WorldPopulation from "./blockСomponents/WorldPopulation/WorldPopulation";
+import WorldPopulationContainer from "./blockСomponents/WorldPopulation/WorldPopulationContainer";
 
 let App = (props) => {
   return <>
     <Routes>
-      <Route path="/" element={<WorldPopulation />} />
+      <Route path="/" element={<WorldPopulationContainer />} />
     </Routes>
   </>
 }
