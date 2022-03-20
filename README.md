@@ -2,69 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Данное приложение показывает количество жителей на планете в реальном времени.
+## История
+До 1970-х годов  наблюдался гиперболический прирост жителей планеты. Так например отметку в 1 млрд жителей мы преодолели в 1804 году, 2 млрд - в 1927 году, 3 млрд - в 1960 году и т.д.
+С 1970-х годов темп роста жителей уменьшился и сейчас наблюдается линейная зависимость. В 2000-х - 2010-х годах фиксировался прирост порядка 80 млн человек в год.
 
-In the project directory, you can run:
+## Количество жителей рассчитывается по следующему алгоритму:
+Так как мы наблюдаем линейный рост жителей, за основу был выбран 1970 год. По данным ООН на 16 января 1970 года насчитывалось 3 531 865 500 жителей.
+population1970 = 3531865500;
+С того момента по настоящий день годовой средний прирост составил около 80 млн человек. В секунду это около 2,66 человека.
+growth = 2.66;
+Используя время Unix в миллисекундах мы можем относительно точно рассчитать количество жителей в данный момент. Погрешность составит не более 1%.
+populationSize = (utc - unixTime01161970) * (growth / 1000) + population1970;
+где 
+utc - время в Unix в миллисекундах (с 1970 по настоящее время) когда мы хотим узнать число жителей
+unixTime01161970 = 1320057000; - время Unix в миллисекундах на 16 января 1970 года
+populationSize - количество жителей в время utc
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Для создания более реалистичной картины прибавления числа жителей (чтобы это не раболал как простой счетчик времени) мы вводим коэффициент волатильности volatilityСoefficient. Данный коэффициент добавляет волатильность линейному росту числа жителей, что визуально делает более правдоподобным результат. 
